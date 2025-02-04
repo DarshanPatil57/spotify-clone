@@ -85,3 +85,53 @@ export const deleteSong = async (req,res)=>{
         })
     }
 }
+
+export const createAlbum = async (req,res)=>{
+    try {
+        const {title,artist,releaseYear} = req.body
+        const {imageFile} = req.files
+
+        const imageUrl = await uploadToCloudinary(imageFile)
+
+        const album = new Album({
+            title,
+            artist,
+            imageUrl,
+            releaseYear,
+        })
+
+        await album.save()
+
+        res.status(200).json(album)
+    } catch (error) {
+        console.log("Error in creating Album",error);
+        res.status(500).json({
+            message:"Internal server error", error
+        })
+    }
+}
+
+export const deleteAlbum = async (req,res)=>{
+    try {
+        const {id} = req.params
+        await Song.deleteMany({
+            albumId:id
+        })
+        await Album.findByIdAndDelete(id)
+
+        res.status(200).json({
+            message:"Album deleted successfully"
+        })
+    } catch (error) {
+        console.log("Error in deleting Album",error);
+        res.status(500).json({
+            message:"Internal server error", error
+        })
+    }
+}
+
+export const checkIsAdmin = async (req,res)=>{
+    res.status(200).json({
+        admin:true
+    })
+}
