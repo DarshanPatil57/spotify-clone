@@ -4,6 +4,6 @@ import {User} from "../Models/user.model.js"
 import { auth } from "../Controllers/auth.controller.js"
 const router = Router()
 
-router.post("/auth",auth )
+router.post("/callback",auth )
 
 export default router

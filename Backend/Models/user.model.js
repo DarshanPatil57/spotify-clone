@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     },
     imageUrl:{
         type:String,
-        required:true
+        default: ""
     },
     clerkId:{
         type:String,

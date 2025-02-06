@@ -1,7 +1,7 @@
 
 import { Router } from "express"
-import { protectRoute } from "../Middleware/authMiddleware"
-import { getAllUser } from "../Controllers/user.controller"
+import { protectRoute } from "../Middleware/authMiddleware.js"
+import { getAllUser } from "../Controllers/user.controller.js"
 
 const router = Router()
 

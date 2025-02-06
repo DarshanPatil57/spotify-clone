@@ -16,20 +16,39 @@ import statsRoute from "./Routes/stats.route.js"
 
 import fileUpload from "express-fileupload"
 import path from "path"
+import { fileURLToPath } from "url";
+import cors from "cors"
 
 const app = express()
 const PORT = process.env.PORT
+const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY;
+const CLERK_PUBLISHABLE_KEY = process.env.VITE_CLERK_PUBLISHABLE_KEY;
 
-app.use(express.json())
-app.use(clerkMiddleware()) // add auth to req obj => req.auth.userId
-app.use(fileUpload({
-    useTempFiles:true,
-    tempFileDir:path.join(__dirname,"temp"),
-    createParentPath:true,
-    limits:{
-        fileSize: 10 * 1024 * 1024 //filesize
+app.use(cors(
+    {
+        origin:"http://localhost:5173",
+        credentials:true
     }
-}))
+))
+app.use(express.json())
+app.use(clerkMiddleware({
+    secretKey: CLERK_SECRET_KEY, 
+    publishableKey: CLERK_PUBLISHABLE_KEY, 
+  }));
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: path.join(__dirname, "temp"), 
+    createParentPath: true,
+    limits: {
+      fileSize: 10 * 1024 * 1024, // 10MB file size limit
+    },
+  })
+);
 
 app.use("/api/users",userRoute )
 app.use("/api/auth", authRoute )
@@ -41,5 +60,5 @@ app.use("/api/stats",statsRoute )
 
 
 app.listen(PORT, ()=> console.log("Server listning to port 3000"),
-// connectDb()
+connectDb()
 )

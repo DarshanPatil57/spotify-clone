@@ -1,6 +1,6 @@
 
 import { Router } from "express"
-import { getAlbumById, getAlbums } from "../Controllers/album.controller"
+import { getAlbumById, getAlbums } from "../Controllers/album.controller.js"
 
 const router = Router()
 

@@ -1,9 +1,16 @@
 import {User} from "../Models/user.model.js"
 export const auth = async(req,res)=>{
     try {
+        
+        console.log("Incoming request body:", req.body);
         const {id,firstName,lastName,imageUrl} = req.body
+
+        if (!id) {
+            return res.status(400).json({ message: "Missing Clerk user ID" });
+        }
+
         // check user exists
-        const user = await User.findOne({
+        let user = await User.findOne({
             clerkId:id
         })
 
@@ -11,8 +18,8 @@ export const auth = async(req,res)=>{
             // signup
             await User.create({
                 clerkId:id,
-                firstName: `${firstName} ${lastName}`,
-                imageUrl
+                fullName: `${firstName} ${lastName}`,
+                imageUrl: imageUrl || ""
             });
         }
 
