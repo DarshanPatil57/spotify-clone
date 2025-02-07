@@ -2,24 +2,29 @@
 import React from "react";
 import HomePage from "./Pages/HomePage";
 import AuthPage from "./Pages/AuthPage";
+import ChatPage from "./Pages/ChatPage";
 import { Route, Routes } from "react-router-dom";
 import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
         <Route
           path="/sso-callback"
           element={
             <AuthenticateWithRedirectCallback
-              signInFallbackRedirectUrl={"/auth".trim()}
+              signInFallbackRedirectUrl={"/auth"}
             />
           }
         />
-
         <Route path="/auth" element={<AuthPage />} />
+        
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/chat" element={<ChatPage/>}/>
+        </Route>
       </Routes>
     </>
   );

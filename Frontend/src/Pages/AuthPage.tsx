@@ -51,42 +51,48 @@ import { Loader } from "lucide-react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 const AuthPage = () => {
   const { isLoaded, user } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
     const syncUser = async () => {
-      // Check if user is loaded and valid
       if (!isLoaded || !user) {
-        console.log("User is not loaded yet or not available");
+        // console.log("User is not loaded yet or not available");
         return;
       }
-
+  
+      // console.log("User data from Clerk:", {
+      //   id: user.id,
+      //   firstName: user.firstName,
+      //   lastName: user.lastName,
+      //   imageUrl: user.imageUrl,
+      // });
+  
       try {
-        console.log("Syncing user with backend...");
-
-        // Sending user data to backend for callback
+        // console.log("Sending user data to backend...");
+  
         const response = await axiosInstance.post("/auth/callback", {
           id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
-          imageUrl: user.imageUrl, // Optional: depending on whether the user has an image
+          imageUrl: user.imageUrl,
         });
-
-        console.log("Response from backend:", response.data);
+  
+        // console.log("Response from backend:", response.data);
       } catch (error) {
-        console.log("Error in auth callback", error);
+        // console.log("Error in auth callback:", error.response?.data || error);
       } finally {
-        navigate("/"); // Navigate to home page after successful sync
+        navigate("/");
       }
     };
-
-    // Only run if user and isLoaded are true
+  
     if (isLoaded && user) {
       syncUser();
     }
-  }, [isLoaded, user, navigate]); // Re-run the effect when user or isLoaded changes
+  }, [isLoaded, user, navigate]);
+  
 
   return (
     <div className="h-screen w-full bg-[#000] flex items-center justify-center text-white">
