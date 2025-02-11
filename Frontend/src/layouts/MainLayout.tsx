@@ -1,3 +1,4 @@
+import RightSidebar from "../Components/RightSidebar";
 import LeftSidebar from "../Components/LeftSidebar";
 import React from "react";
 import { Outlet } from "react-router-dom";
@@ -19,8 +20,9 @@ const MainLayout: React.FC = () => {
       
       {/* Right Sidebar */}
       <aside className="w-1/4 bg-zinc-900 p-4  lg:flex flex-col">
-        <div className="text-lg font-bold">Right Sidebar</div>
-        {/* Add sidebar content here */}
+        <div className="text-lg font-bold">
+          <RightSidebar/>
+        </div>
       </aside>
     </div>
   );
