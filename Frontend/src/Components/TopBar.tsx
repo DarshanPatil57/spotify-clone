@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, SignIn, SignOutButton, UserButton } from '@clerk/clerk-react'
+import { SignedOut,  UserButton } from '@clerk/clerk-react'
 import { LayoutDashboardIcon } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -10,7 +10,7 @@ const TopBar = () => {
     // console.log(isAdmin);
     
   return (
-    <div className='flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10 text-white rounded-md'>
+    <div className='flex items-center justify-between p-4 sticky top-0 bg-zinc-900/90 backdrop-blur-md z-10 text-white rounded-md'>
         <div className='flex gap-2 items-center'>
             <img src="/spotify.png" alt="spotify logo" className='size-8' />
             Spotify

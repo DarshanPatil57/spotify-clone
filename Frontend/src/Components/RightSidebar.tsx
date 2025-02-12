@@ -23,7 +23,7 @@ const RightSidebar = () => {
         </div>
       </div>
 
-      {!user && <LoginPrompt />}
+      {!user.isSignedIn && <LoginPrompt />}
 
       <div className="flex-1">
         <div className="p-4 space-y-4">

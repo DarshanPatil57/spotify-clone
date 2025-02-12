@@ -2,11 +2,13 @@ import RightSidebar from "../Components/RightSidebar";
 import LeftSidebar from "../Components/LeftSidebar";
 import React from "react";
 import { Outlet } from "react-router-dom";
+import AudioPlayer from "../Components/AudioPlayer";
 
 const MainLayout: React.FC = () => {
   return (
     <div className="h-screen w-screen bg-black text-white flex">
       {/* Left Sidebar */}
+      <AudioPlayer/>
       <aside className="w-1/7 bg-zinc-800  hidden md:flex flex-col">
         <div className="text-lg font-bold">
         <LeftSidebar/>
