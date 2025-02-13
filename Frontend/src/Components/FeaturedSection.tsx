@@ -1,6 +1,7 @@
-import { useMusicStore } from "../store/useMusicStore";
 import React from "react";
+import { useMusicStore } from "../store/useMusicStore";
 import FeaturedSkeleton from "./skeleton/FeaturedSkeleton";
+import PlayButton from "./PlayButton";
 
 const FeaturedSection = () => {
   const { isLoading, feturedSongs, error } = useMusicStore();
@@ -23,6 +24,7 @@ const FeaturedSection = () => {
               <p className="font-medium truncate">{songs.title}</p>
               <p className="text-sm text-zinc-400 truncate">{songs.artist}</p>
             </div>
+          <PlayButton songs={songs}/>
           </div>
         </>
       ))}

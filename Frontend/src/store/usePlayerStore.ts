@@ -29,18 +29,26 @@ export const usePlayerStore = create<PlayerStore>((set,get)=>({
         })
     },
 
-    playAlbum:(songs:Song[],startIndex = 0)=> {
-        if(songs.length ===0 ) return;
-
+    playAlbum: (songs: Song[] | undefined, startIndex = 0) => {
+        if (!songs || songs.length === 0) {
+            console.error("No songs available to play.");
+            return;
+        }
+    
         const song = songs[startIndex];
-
+        if (!song) {
+            console.error("Invalid start index.");
+            return;
+        }
+    
         set({
-            queue:songs,
-            currentSong:song,
-            currentIndex:startIndex,
-            isPlaying:true
-        })
+            queue: songs,
+            currentSong: song,
+            currentIndex: startIndex,
+            isPlaying: true
+        });
     },
+    
 
     setCurrentSong:(song:Song | null) => {
         if(!song) return;
