@@ -1,6 +1,6 @@
 import RightSidebar from "../Components/RightSidebar";
 import LeftSidebar from "../Components/LeftSidebar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import AudioPlayer from "../Components/AudioPlayer";
 import PlayBackControl from "../Components/PlayBackControl";
@@ -15,12 +15,12 @@ import PlayBackControl from "../Components/PlayBackControl";
 //         <LeftSidebar/>
 //         </div>
 //       </aside>
-      
+
 //       {/* Main Content */}
 //       <main className="flex-1 p-4 overflow-y-auto">
 //         <Outlet />
 //       </main>
-      
+
 //       {/* Right Sidebar */}
 //       <aside className="w-1/4 bg-zinc-900 p-4  lg:flex flex-col">
 //         <div className="text-lg font-bold">
@@ -34,11 +34,21 @@ import PlayBackControl from "../Components/PlayBackControl";
 //   );
 // };
 
-const MainLayout: React.FC = () => {
+const MainLayout = () => {
+  const [isMobile, setIsmobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsmobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
   return (
     <div className="h-screen w-screen bg-black text-white flex flex-col">
       <div className="flex flex-1 overflow-hidden">
-        <AudioPlayer/>
+        <AudioPlayer />
         {/* Left Sidebar */}
         <aside className="w-1/7 bg-zinc-800 hidden md:flex flex-col">
           <LeftSidebar />
@@ -50,9 +60,11 @@ const MainLayout: React.FC = () => {
         </main>
 
         {/* Right Sidebar */}
-        <aside className="w-1/5 bg-zinc-900 p-4 lg:flex flex-col">
-          <RightSidebar />
-        </aside>
+        {!isMobile && (
+          <aside className="w-1/5 bg-zinc-900 p-4 lg:flex flex-col">
+            <RightSidebar />
+          </aside>
+        )}
       </div>
 
       {/* Playback Control -*/}
@@ -62,6 +74,5 @@ const MainLayout: React.FC = () => {
     </div>
   );
 };
-
 
 export default MainLayout;

@@ -7,6 +7,8 @@ import { Route, Routes } from "react-router-dom";
 import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react";
 import MainLayout from "./layouts/MainLayout";
 import AlbumPage from "./Pages/AlbumPage";
+import AdminPage from "./Pages/Admin/AdminPage";
+import {Toaster} from "react-hot-toast"
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           }
         />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/admin" element={<AdminPage/>} />
         
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
@@ -28,6 +31,7 @@ function App() {
           <Route path="/albums/:albumId" element={<AlbumPage/>}/>
         </Route>
       </Routes>
+      <Toaster/>
     </>
   );
 }
